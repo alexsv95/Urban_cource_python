@@ -1,9 +1,19 @@
 # Задача "Магические здания"
 
 class House:
-    def __init__(self, name, number_of_floors):
-        self.name = name
-        self.number_of_floors = number_of_floors
+    houses_history = []
+
+    def __new__(cls, *args, **kwargs):
+        cls.houses_history.append(args[0])
+        return super().__new__(cls)
+
+
+    def __init__(self, *args, **kwargs):
+        self.name = args[0]
+        self.number_of_floors = args[1]
+
+    def __del__(self):
+        return print(f'{self.name} снесен, но он остается в истории')
 
     def go_to_floor(self, new_floor: int):
         if new_floor > self.number_of_floors or new_floor < 1:
@@ -60,8 +70,15 @@ class House:
 
 
 h1 = House('ЖК Эльбрус', 10)
+print(House.houses_history)
 h2 = House('ЖК Акация', 20)
+print(House.houses_history)
+h3 = House('ЖК Матрёшки', 20)
+print(House.houses_history)
 
-print(h1)
-print(h2)
+# Удаление объектов
+del h2
+del h3
+
+print(House.houses_history)
 
