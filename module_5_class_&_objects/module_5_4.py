@@ -3,16 +3,16 @@
 class House:
     houses_history = []
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(cls, *args, **kwargs): # Срабатывает до создания объекта
         cls.houses_history.append(args[0])
         return super().__new__(cls)
 
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs): # Срабатывает после создания объекта
         self.name = args[0]
         self.number_of_floors = args[1]
 
-    def __del__(self):
+    def __del__(self): # Срабатывает после завершения программы, когда в программе отсутствуют явные ссылки на объект
         return print(f'{self.name} снесен, но он остается в истории')
 
     def go_to_floor(self, new_floor: int):
