@@ -1,15 +1,16 @@
+from time import sleep
 
 class User:
     def __init__(self, nickname: str, password, age: int):
         if isinstance(nickname, str):
             self.nickname = nickname
         else:
-            print('Параметр nickname поддерживает только строку')
+            raise ValueError
         if isinstance(age, int):
             self.age = age
         else:
-            print('Параметр age поддерживает только число')
-        self.password = hash(password)
+            raise ValueError
+        self.password = hash(str(password))
 
 
 class Video:
@@ -33,22 +34,23 @@ class Video:
 
 
 class UrTube:
+    current_user = None
+
     def __init__(self):
         self.users = {}
         self.videos = {}
-        self.current_user = None
 
     def register(self, nickname, password, age):
         if nickname not in self.users:
-            self.users[nickname] = {'password' : password, 'age' : age}
+            self.users[nickname] = User(nickname, password, age)
             self.log_in(nickname, password)
         else:
             print(f'Пользователь {nickname} уже существует')
 
     def log_in(self, nickname, password):
         if nickname in self.users:
-            if self.users[nickname].get('password') == password:
-                self.current_user = nickname
+            if self.users[nickname].password == hash(str(password)):
+                self.current_user = self.users[nickname].nickname
             else:
                 print('Введен не корректный пароль')
         else:
@@ -72,21 +74,28 @@ class UrTube:
         return found_video
 
     def watch_video(self, title):
-        from time import sleep
+        found_result = None
         if self.current_user is None:
-            print('Войдите в аккаунт, чтобы смотреть видео')
-        else:
+            result = 'Войдите в аккаунт, чтобы смотреть видео'
+        elif self.current_user is not None:
             for key in self.videos.keys():
                 if title == str(key):
+                    found_result = None
                     adult_mode = self.videos[key].get('adult_mode')
-                    if adult_mode is True and self.users[self.current_user].get('age') < 18:
-                        print('Вам нет 18 лет, пожалуйста покиньте страницу')
+                    if adult_mode is True and self.users[self.current_user].age < 18:
+                        print(f'Вам нет 18 лет, пожалуйста покиньте страницу')
                     else:
                         duration = self.videos[key].get('duration')
                         for i in range(duration):
                             print(i, end=' ')
+                            self.videos[key]['time_now'] = 0
                             sleep(1)
                         print('Конец видео')
+                        break
+                else:
+                    found_result = f'Видео с названием {title} не найдено'
+        if found_result is not None:
+            return print(found_result)
 
 
 if __name__ == '__main__':
