@@ -74,13 +74,13 @@ class UrTube:
         return found_video
 
     def watch_video(self, title):
-        found_result = None
+        found_result = False
         if self.current_user is None:
-            result = 'Войдите в аккаунт, чтобы смотреть видео'
-        elif self.current_user is not None:
+            print('Войдите в аккаунт, чтобы смотреть видео')
+        else:
             for key in self.videos.keys():
                 if title == str(key):
-                    found_result = None
+                    found_result = True
                     adult_mode = self.videos[key].get('adult_mode')
                     if adult_mode is True and self.users[self.current_user].age < 18:
                         print(f'Вам нет 18 лет, пожалуйста покиньте страницу')
@@ -92,10 +92,8 @@ class UrTube:
                             sleep(1)
                         print('Конец видео')
                         break
-                else:
-                    found_result = f'Видео с названием {title} не найдено'
-        if found_result is not None:
-            return print(found_result)
+            if found_result is False:
+                return print(f'Видео с названием {title} не найдено')
 
 
 if __name__ == '__main__':
@@ -116,8 +114,8 @@ if __name__ == '__main__':
     ur.watch_video('Для чего девушкам парень программист?')
     ur.register('urban_pythonist', 'iScX4vIJClb9YQavjAgF', 25)
     ur.watch_video('Для чего девушкам парень программист?')
-
-    # Проверка входа в другой аккаунт
+    #
+    # # Проверка входа в другой аккаунт
     ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
     print(ur.current_user)
 
