@@ -95,7 +95,6 @@ class UrTube:
             if found_result is False:
                 return print(f'Видео с названием {title} не найдено')
 
-
 if __name__ == '__main__':
     ur = UrTube()
     v1 = Video('Лучший язык программирования 2024 года', 200)
