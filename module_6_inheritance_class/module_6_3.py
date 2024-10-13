@@ -43,4 +43,6 @@ print(p1.get_pos())
 p1.move(-5, 20)
 print(p1.get_pos())
 
+print(p1.__dict__)
+print(p1.sound)
 p1.voice()
