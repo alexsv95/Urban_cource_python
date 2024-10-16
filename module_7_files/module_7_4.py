@@ -20,14 +20,14 @@ def winner_definition() -> str:
 
 
 # Использование %
-print('В команде Мастера кода участников: %s!' % team1_num)
+print('В команде %s участников: %s!' % (team1_name, team1_num))
 print('Итого сегодня в командах участников: %(team1)s и %(team2)s!' % {'team1': team1_num, 'team2': team2_num})
 
 # Использование format()
-print('Команда Волшебники данных решила задач: {}!'.format(score_2))
-print('Волшебники данных решили задачи за {tt1}с!'.format(tt1=team1_time))
+print('Команда {} решила задач: {}!'.format(team2_name, score_2))
+print('{team2} решили задачи за {tt1}с!'.format(tt1=team1_time, team2=team2_name))
 
 # Использование f-строк
 print(f'Команды решили {score_1} и {score_2} задач.')
 print(f'Результат битвы: {winner_definition()}')
-print(f'Сегодня было решено {tasks_total} задач, в среднем по {time_avg} секунды на задачу!.')
+print(f'Сегодня было решено {tasks_total} задач, в среднем по {time_avg} секунды на задачу!')
