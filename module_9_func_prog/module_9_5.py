@@ -1,5 +1,3 @@
-from turtledemo.penrose import start
-
 
 class StepValueError(ValueError):
     pass
