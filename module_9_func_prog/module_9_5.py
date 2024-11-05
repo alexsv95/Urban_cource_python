@@ -11,21 +11,23 @@ class Iterator:
             raise StepValueError('шаг не может быть равен 0')
         else:
             self.step = step
-        self.pointer = start
 
     def __iter__(self):
         self.pointer = self.start
         return self
 
     def __next__(self):
+        current_point = self.pointer
         self.pointer += self.step
+        if self.pointer == self.stop:
+            return self.pointer
         if self.start > self.stop:
             if self.pointer < self.stop or self.step > 0:
                 raise StopIteration(f'Итерация завершена')
         else:
             if self.pointer > self.stop:
                 raise StopIteration(f'Итерация завершена')
-        return self.pointer
+        return current_point
 
 try:
     iter1 = Iterator(100, 200, 0)
