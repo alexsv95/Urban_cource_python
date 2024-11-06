@@ -5,7 +5,7 @@ def is_prime(func):
         num_prime = True
         for i in range(2, result):
             if result % i == 0:
-                check_prime = False
+                num_prime = False
                 break
         if num_prime:
             print('Простое')
