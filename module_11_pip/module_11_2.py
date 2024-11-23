@@ -33,14 +33,3 @@ class MyClass:
 
 obj_class = MyClass()
 print(introspection_info(obj_class))
-
-# for attr_name in obj_class.__dict__:
-#     print(attr_name)
-
-print(obj_class.__dict__)
-
-num = [1,2]
-print(introspection_info(num))
-
-# from pprint import pprint
-# pprint(dir(obj_class))
