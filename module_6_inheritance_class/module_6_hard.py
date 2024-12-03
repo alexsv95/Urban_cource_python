@@ -1,4 +1,4 @@
-import math
+from math import pi, sqrt
 
 from numpy.matlib import empty
 
@@ -53,11 +53,11 @@ class Circle(Figure):
         self.__radius = self.__calculation_radius()
 
     def get_square(self):
-        square = math.pi * self.__radius ** 2
+        square = pi * self.__radius ** 2
         return square
 
     def __calculation_radius(self):
-        radius = len(self) / (math.pi * 2)
+        radius = len(self) / (pi * 2)
         return radius
 
 
@@ -66,7 +66,11 @@ class Triangle (Figure):
     sides_count = 3
 
     def get_square(self):
-        pass
+        a = self.get_sides()[0]
+        b = self.get_sides()[1]
+        c = self.get_sides()[2]
+        s = (a + b + c) / 2
+        return sqrt(s * (s - a) * (s - b) * (s - c))
 
 class Cube(Figure):
     sides_count = 12
@@ -78,16 +82,22 @@ class Cube(Figure):
         else:
             self.__sides = [1] * self.sides_count
 
+    def get_volume(self):
+        return self.__sides[0] ** 3
+
 
 
 
 circle1 = Circle([200, 200, 100], 10)
 print(circle1.get_sides())
 
-triangle1 = Triangle([200, 200, 100], 10, 1)
+triangle1 = Triangle([200, 200, 100], 6)
 print(triangle1.get_sides())
+print(triangle1.get_square())
 
-cube1 = Cube([200, 200, 100], 9)
+cube1 = Cube([200, 200, 100], 6)
+print(cube1._Cube__sides)
+print(cube1._Figure__sides)
 print(cube1.get_sides())
-print(len(cube1))
+print(cube1.get_volume())
 
